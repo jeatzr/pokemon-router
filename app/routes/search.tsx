@@ -8,7 +8,7 @@ import type { PokemonBasic } from "../types/interfaces";
 import { useLoaderData } from "react-router";
 
 // **Loader function for React Router**
-export async function loader() {
+export async function clientLoader() {
   try {
     const pokemons: PokemonBasic[] = await getAllPokemons();
     return { pokemons: pokemons };
@@ -18,12 +18,21 @@ export async function loader() {
   }
 }
 
-function Search() {
-  // Loading state
-  const [isLoading, setIsLoading] = useState(true);
+// HydrateFallback is rendered while the client loader is running
+export function HydrateFallback() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+      <div className="flex justify-center items-center">
+        <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+      </div>
+      <p className="mt-4 text-lg">Loading Pokémon...</p>
+    </div>
+  );
+}
 
+function Search() {
   // Get Pokémon data from the loader
-  const loaderData = useLoaderData() as { pokemons: PokemonBasic[] };
+  const loaderData: { pokemons: PokemonBasic[] } = useLoaderData();
 
   // State for search term
   const [search, setSearch] = useState<string>("");
@@ -34,24 +43,6 @@ function Search() {
       pokemon.name.toLowerCase().startsWith(search.toLowerCase())
     );
   }, [search, loaderData.pokemons]);
-
-  useEffect(() => {
-    if (loaderData.pokemons.length > 0) {
-      setIsLoading(false); // Set loading to false once data has loaded
-    }
-  }, [loaderData.pokemons]);
-
-  // **Show a loading spinner if no data has loaded yet**
-  if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-500 text-white">
-        <div className="flex justify-center items-center">
-          <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
-        </div>
-        <p className="mt-4 text-lg">Loading Pokémon...</p>
-      </div>
-    );
-  }
 
   // **Render component**
   return (
