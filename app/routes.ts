@@ -6,7 +6,7 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
-  layout("routes/home.tsx", [
+  layout("layouts/home.tsx", [
     index("routes/welcome.tsx"), // Home page (acts as the layout)
     route("about", "routes/about.tsx"), // About as a child route
     route("search", "routes/search.tsx"), // Search as a child route

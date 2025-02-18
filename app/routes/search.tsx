@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect } from "react";
-import type { Route } from "../+types/root";
 import { getAllPokemons } from "../services/pokeapi";
 import SearchBox from "../components/SearchBox/SearchBox";
 import CardList from "../components/CardList/CardList";
@@ -46,9 +45,9 @@ function Search() {
 
   // **Render component**
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-500 text-white">
-      <header className="bg-white text-gray-900 shadow-lg rounded-2xl p-8 max-w-lg text-center">
-        <h3 className="text-2xl font-bold text-blue-600 mb-4">
+    <div className="flex flex-col items-center justify-center text-white transition-colors duration-500">
+      <header className="bg-white dark:bg-gray-700 text-gray-900 shadow-lg rounded-2xl p-8 max-w-lg text-center">
+        <h3 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-8">
           Search for a Pokémon
         </h3>
         <SearchBox

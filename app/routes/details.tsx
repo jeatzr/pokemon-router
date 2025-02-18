@@ -42,11 +42,7 @@ function Details() {
     );
   }
 
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-6">
-      <PokemonDetails pokemon={pokemon} />
-    </div>
-  );
+  return <PokemonDetails pokemon={pokemon} />;
 }
 
 export default Details;
